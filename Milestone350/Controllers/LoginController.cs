@@ -16,7 +16,7 @@ namespace Milestone350.Controllers
             SecurityService securityService = new SecurityService();
 
 
-            if(securityService.IsValid(user))
+            if (securityService.IsValid(user))
             {
                 return View("LoginSuccess", user);
             }
