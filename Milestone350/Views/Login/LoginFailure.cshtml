@@ -1,0 +1,11 @@
+﻿@model Milestone350.Models.UserModel
+
+<div>
+   <h4>You have entered the wrong Username/Password</h4>
+   <hr/>
+   <p> @Model.UserName, You are a <b>fool!</b> @Model.Password is an feeble attempt at signing in </p>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
