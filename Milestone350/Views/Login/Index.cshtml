@@ -1,8 +1,12 @@
 ﻿@model Milestone350.Models.UserModel
 @{Layout = null;}
 
-
-    <h4>Login Page</h4>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Milestone350.styles.css" asp-append-version="true" />
+@*    <h4>Login Page</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,14 +23,58 @@
                 <input asp-for="Password"type = "password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group">    
                 <input type="submit" value="Login" class="btn btn-primary" />
             </div>
         </form>
     </div>
+</div>*@
+
+
+ <div id="pageContent">
+  <div class="d-flex align-items-center h-100">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-xs-12 ms-auto">
+          <div class="bg-white rounded shadow-lg">
+            <h1 class="text-center h5 pt-5 pb-3"><strong>LOGIN</strong></h1>
+            <form class="py-2" asp-action="ProcessLogin">
+              <div class="position-relative maxWidth320 px-2">
+                <div class="inlineLogo"><i class="text-accent fas fa-at"></i></div>
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+              </div>
+              <div class="position-relative maxWidth320 px-2 d-flex align-items-end justify-content-between">
+                <div>
+                  <div class="inlineLogo"><i class="text-accent fas fa-key"></i></div>
+                  <label asp-for="Password" class="control-label"></label>
+                   <input asp-for="Password" type = "password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+              </div>
+              <div id="submitBtn" class="text-center">
+                <button type="submit" value="Login" class="btn w-50 btn-lg shadow-sm rounded-pill">Login</button>
+              </div>
+            </form>
+            <div class="text-center pb-4">
+              Don't have an account? 
+              <form asp-action="ProcessSignup">
+                  <div id="submitBtn" class="text-center">
+                         <button class="btn w-50 btn-lg shadow-sm rounded-pill">Register</button>
+                    </div>
+              </form>
+              
+
+            </div>
+          </div>
+          <div class="p-2 mx-2 rounded-bottom shadow bg-accent border-bottom border-dark"></div>
+          <div class="p-1 mx-3 rounded-bottom shadow bg-accent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-
 
 
 <div>

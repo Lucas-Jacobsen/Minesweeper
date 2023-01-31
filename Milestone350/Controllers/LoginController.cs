@@ -25,5 +25,10 @@ namespace Milestone350.Controllers
                 return View("LoginFailure", user);
             }
         }
+
+        public IActionResult ProcessSignup(UserModel user)
+        {
+            return View();
+        }
     }
 }
