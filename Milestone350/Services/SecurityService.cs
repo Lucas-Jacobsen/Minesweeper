@@ -10,5 +10,10 @@ namespace Milestone350.Services
         {
             return securityDAO.FindUserByNameAndPassword(user);
         }
+
+        public bool IsAdded(UserModel user)
+        {
+            return securityDAO.addUserToDatabase(user);
+        }
     }
 }

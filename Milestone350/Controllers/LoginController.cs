@@ -30,5 +30,18 @@ namespace Milestone350.Controllers
         {
             return View();
         }
+        public IActionResult SignupResults(UserModel user)
+        {
+            SecurityService securityService = new SecurityService();
+
+            if (securityService.IsAdded(user))
+            {
+                return View("SignupSuccess", user);
+            }
+            else
+            {
+                return View("SignupFailure", user);
+            }
+        }
     }
 }
