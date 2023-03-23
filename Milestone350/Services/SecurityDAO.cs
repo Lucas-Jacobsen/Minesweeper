@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using AspNetCore;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Milestone350.Models;
 using System;
 using System.Data.SqlClient;
@@ -24,8 +25,6 @@ namespace Milestone350.Services
                 SqlCommand command = new SqlCommand(sqlStatement, connection);
 
                 //define the values of the two placeholders in the statement string 
-                command.Parameters.Add("@Username", System.Data.SqlDbType.VarChar, 50).Value = user.UserName;
-                command.Parameters.Add("@Password", System.Data.SqlDbType.VarChar, 50).Value = user.Password;
 
                 try
                 {

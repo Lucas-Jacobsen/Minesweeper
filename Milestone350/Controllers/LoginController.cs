@@ -29,10 +29,6 @@ namespace Milestone350.Controllers
             {//when page loads, generate the board class
                 for (int i = 0; i < GRID_SIZE; i++)
                 {
-
-                    buttons.Add(new CellModel(i, random.Next(2)));
-                }
-                return View("DisplayBoard", buttons);
             }
             else
             {
