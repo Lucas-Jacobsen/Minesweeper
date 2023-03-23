@@ -16,3 +16,51 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#pageContent {
+    background: url('/images/350background.png') no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+}
+
+input {
+    height: 64px;
+    outline: none;
+    padding-left: 32px;
+}
+
+.inlineLogo {
+    position: absolute;
+    line-height: 64px;
+}
+
+.text-accent {
+    color: #ea3f2d
+}
+
+.bg-accent {
+    background-color: #91CFFE
+}
+
+#submitBtn {
+    margin-top: 64px;
+    margin-bottom: 32px;
+    border-top: 1px dashed #eaeaea;
+}
+ #submitBtn button {
+        margin-top: -28px;
+        /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#f7644a+0,e73827+100 */
+        background: rgb(247,100,74); /* Old browsers */
+        background: -moz-linear-gradient(-45deg, #0061ff 0%, #60efff 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(-45deg, #0061ff 0%,#60efff 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(135deg, #0061ff 0%,#60efff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7644a', endColorstr='#e73827',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+        color: #fff;
+    }
+
+.maxWidth320 {
+    max-width: 320px;
+    margin: 0 auto;
+}
