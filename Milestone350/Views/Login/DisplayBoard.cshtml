@@ -1,17 +1,16 @@
-﻿@model IEnumerable<Milestone350.Models.CellModel>
+﻿@model IEnumerable<Milestone350.Models.Cell>
 <style>
     .game-button {
         width: 85px;
     }
 
     .game-button-image {
-        width: 85px;
+        width: 70px;
     }
 
     .button-zone {
         display: flex;
         flex-wrap: wrap;
-
     }
 
     .line-break {
@@ -22,13 +21,16 @@
     .button-label {
         font-size: 8px;
         text-align: center;
-
-    
+    }
+    button{
+        height: 50px;
+        width: 50px
     }
 </style>
 
 @{
     string[] imageNames = { "unclickedBox.jpg", "minesweeperBomb.png" };
+    
 }
 <form>
     <div class="button-zone">
@@ -37,20 +39,20 @@
         {
             //start a new line for every five
             //THIS WILL BE CHANGED WHEN READING IN THE BOARD SIZE
-            if(i%5 == 0)
-            {
-                <div class="line-break"></div>
-            }
-            <button class="game-button" type="submit" value="@Model.ElementAt(i).Id" name="cellNumber" asp-controller ="Login" asp-action="HandleButtonClick">
+         
+            
+                 if(i%Math.Sqrt(Model.Count()) == 0)
+                 {
+                    <div class="line-break"></div>
+                 }
+            
+           
+            <button class="game-button" type="submit" value="@Model.ElementAt(i)" name="cellNumber" asp-controller ="Login" asp-action="HandleButtonClick">
 
 
-                    <img class="game-button" src ="~/images/@imageNames[Model.ElementAt(i).CellState]"/>
-                    <!---<div class="button-label">
-                    @Model.ElementAt(i).Id
-                        ,
-                    @Model.ElementAt(i).CellState
-                    </div>-->
-                </button>
+                    @*<img class="game-button" src ="~/images/@imageNames[Model.ElementAt(i).LiveNeighbors]"/>*@
+                   
+           </button>
         }
     </div>
 </form>

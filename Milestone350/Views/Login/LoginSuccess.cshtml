@@ -1,35 +1,93 @@
-﻿@model Milestone350.Models.UserModel
+﻿@model Milestone350.Models.Board
+@{Layout = null;}
+<style>
+    #header
+    {
+        text-align:center;
+        background: rgba(0, 0, 0, 0.6); 
+        color: #FFF; 
+        height: 200px;
+        font-size: 100px;
+    }
+    h5
+    {
+       float:left;
+    }
+    
+  
+</style>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Milestone350.styles.css" asp-append-version="true" />
+</head>
+<body>
+	<div id="pageContent">
+    <div id="header">Welcome Back!</div>
+<br /><br />
+  <div class="d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-xs-12 ms-auto">
+          <div class="bg-white rounded shadow-lg">
+            <h1 class="text-center h5 pt-5 pb-3"><strong>Game Settings</strong></h1>
+            <form class="py-2" asp-action="DisplayGameBoard">
+              <div class="position-relative maxWidth320 px-2">
+                <div class="inlineLogo"><i class="text-accent fas fa-at"></i></div>
+                <label asp-for="Size" class="control-label">Board Size</label><br />
+                                
 
-<div>
-    <h4>Succesful Login!</h4>
-    <h3>Our minesweeper app will be here in the future</h3>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-    </dl>
-</div>
+                <input asp-for="Size" type="radio" value="5" /><label asp-for="Size" class="control-label">5x5</label>
+
+                <input asp-for="Size" type="radio" value="10" /><label asp-for="Size" class="control-label">10x10</label>
+
+                <input asp-for="Size" type="radio" value="20" /><label asp-for="Size" class="control-label">20x20</label>
+
+                <input asp-for="Size" type="radio" value="50" /><label asp-for="Size" class="control-label">50x50</label>
 
 
 
+                
 
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+              </div><br />
+              <div class="position-relative maxWidth320 px-5 d-flex align-items-end justify-content-between">
+                <div>
+                  <div class="inlineLogo"></div>
+                  <label asp-for="Difficulty" class="control-label">Difficulty</label><br />
+                                
+
+                <input asp-for="Difficulty" type="radio" value=".1" /><label asp-for="Difficulty" class="control-label">Easy</label>
+
+                <input asp-for="Difficulty" type="radio" value=".2" /><label asp-for="Difficulty" class="control-label">Medium</label>
+
+                <input asp-for="Difficulty" type="radio" value=".3" /><label asp-for="Difficulty" class="control-label">Hard</label>
+
+
+                </div>
+              </div>
+              <div id="submitBtn" class="text-center">
+                <button type="submit" value="Login" class="btn w-50 btn-lg shadow-sm rounded-pill">Play</button>
+              </div>
+            </form>
+            
+             
+              
+
+          
+          <div class="p-2 mx-2 rounded-bottom shadow bg-accent border-bottom border-dark"></div>
+          <div class="p-1 mx-3 rounded-bottom shadow bg-accent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+ 
+
+ 
+
+</body>
+
+
+

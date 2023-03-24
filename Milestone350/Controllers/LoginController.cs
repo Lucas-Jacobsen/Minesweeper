@@ -8,7 +8,7 @@ namespace Milestone350.Controllers
     { 
         
         //create a list of buttons
-        static List<CellModel> buttons = new List<CellModel>();
+        static List<Cell> buttons = new List<Cell>();
         Random random = new Random();
         const int GRID_SIZE = 25;
 
@@ -26,13 +26,9 @@ namespace Milestone350.Controllers
 
 
             if (securityService.IsValid(user))
-            {//when page loads, generate the board class
-                for (int i = 0; i < GRID_SIZE; i++)
-                {
-
-                    buttons.Add(new CellModel(i, random.Next(2)));
-                }
-                return View("DisplayBoard", buttons);
+            {
+                //when page loads, generate the board class
+                return View("LoginSuccess", new Board());
             }
             else
             {
@@ -61,18 +57,26 @@ namespace Milestone350.Controllers
             }
         }
 
-        //button handlers for the minesweeper game page
-        public IActionResult HandleButtonClick(string cellNumber)
+  public IActionResult DisplayGameBoard(Board board)
         {
-            //convert from a string into an int
-            int cN = int.Parse(cellNumber);
 
-            //change the button visual
-            //THIS WILL CHANGE WITH FUNCTIONALITY
-            buttons.ElementAt(cN).CellState = (buttons.ElementAt(cN).CellState + 1)%2;
+            //when page loads, generate the board class
+            for (int i = 0; i < board.Size * board.Size; i++)
+            {
 
-            //redisplay the buttons
+                buttons.Add(new Cell(i, random.Next(2)));
+            }
             return View("DisplayBoard", buttons);
+        }
+
+      
+
+        //button handlers for the minesweeper game page
+        public IActionResult RightClickFlag(int buttonNumber)
+        {
+            buttons.ElementAt(buttonNumber).IsFlagged = true;
+
+            return PartialView("Flag", buttons.ElementAt(buttonNumber));
         }
     }
 }
