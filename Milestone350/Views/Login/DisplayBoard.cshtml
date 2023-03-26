@@ -29,7 +29,7 @@
 </style>
 
 @{
-    string[] imageNames = { "unclickedBox.jpg", "minesweeperBomb.png" };
+    string[] imageNames = { "unclickedBox.jpg", "minesweeperBomb.png", "minesweeperFlag.png"};
     
 }
 <form>
@@ -47,10 +47,14 @@
                  }
             
            
-            <button class="game-button" type="submit" value="@Model.ElementAt(i)" name="cellNumber" asp-controller ="Login" asp-action="HandleButtonClick">
+            <button class="game-button" type="submit" value="@Model.ElementAt(i)" name="cellNumber" asp-controller ="Login" >
+
+                   @if(@Model.ElementAt(i).IsFlagged) { <img class="game-button" src ="~/images/@imageNames[2]"/>
+}
+                    @if(@Model.ElementAt(i).IsVisited){@Model.ElementAt(i).LiveNeighbors}
 
 
-                    @*<img class="game-button" src ="~/images/@imageNames[Model.ElementAt(i).LiveNeighbors]"/>*@
+                
                    
            </button>
         }

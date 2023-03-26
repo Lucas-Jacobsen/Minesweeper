@@ -10,7 +10,8 @@ namespace Milestone350.Controllers
         //create a list of buttons
         static List<Cell> buttons = new List<Cell>();
         Random random = new Random();
-        const int GRID_SIZE = 25;
+        Board gameBoard = new Board();
+        
 
 
 
@@ -59,22 +60,35 @@ namespace Milestone350.Controllers
 
   public IActionResult DisplayGameBoard(Board board)
         {
-
+            
+            gameBoard = new Board(board.Size, board.Difficulty);
+            gameBoard.setupBombs();
+            gameBoard.CalcLiveNeighbors();
             //when page loads, generate the board class
-            for (int i = 0; i < board.Size * board.Size; i++)
+            for (int i = 0; i < gameBoard.Size; i++)
             {
-
-                buttons.Add(new Cell(i, random.Next(2)));
+                for(int j  = 0; j < gameBoard.Size; j++)
+                {
+                    buttons.Add(new Cell(i, j));
+                }
+               
             }
             return View("DisplayBoard", buttons);
         }
 
-      
+        public IActionResult ShowOneCell(int buttonNumber)
+        {
+            gameBoard.rightClick(buttons.ElementAt(buttonNumber).Row, buttons.ElementAt(buttonNumber).Col);
+            
+            
+            
+            return PartialView(buttons.ElementAt(buttonNumber));
+        }
 
         //button handlers for the minesweeper game page
-        public IActionResult RightClickFlag(int buttonNumber)
+        public IActionResult RightClickShowOneCell(int buttonNumber)
         {
-            buttons.ElementAt(buttonNumber).IsFlagged = true;
+            gameBoard.leftClick(buttons.ElementAt(buttonNumber).Row, buttons.ElementAt(buttonNumber).Col);
 
             return PartialView("Flag", buttons.ElementAt(buttonNumber));
         }

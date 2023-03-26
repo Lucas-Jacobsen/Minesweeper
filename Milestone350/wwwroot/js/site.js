@@ -4,7 +4,6 @@
     $(document).bind("contextmenu", function (e) {
        e.preventDefault();
         var buttonNumber = $(this).val();
-        console.log("Button " + buttonNumber + " was Right clicked");
 
     });
 
@@ -14,14 +13,14 @@
             case 1:
                 event.preventDefault();
                 var buttonNumber = $(this).val();
-                console.log("Button " + buttonNumber + " was left clicked");
-                doButtonUpdate(buttonNumber, "/Login/DisplayGameBoard/flag");
+                console.log("Cell " + buttonNumber + " was left clicked");
+                doButtonUpdate(buttonNumber, "/ShowOneCell");
                 break;
             case 3:
                 event.preventDefault();
                 var buttonNumber = $(this).val();
-                console.log("Button " + buttonNumber + " was Right clicked");
-                doButtonUpdate(buttonNumber, "/Login/DisplayGameBoard/flag"); break;
+                console.log("Cell " + buttonNumber + " was Right clicked");
+                doButtonUpdate(buttonNumber, "/Login/DisplayGameBoard/RightClickShowOneCell");
                 break;
 
         }
@@ -35,7 +34,7 @@ function doButtonUpdate(buttonNumber, urlString) {
         url: urlString,
         data: { "buttonNumber": buttonNumber },
         success: function (data) {
-            console.log(data);
+            
             $("#" + buttonNumber).html(data);
         }
     });
