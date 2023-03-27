@@ -8,7 +8,6 @@ namespace Milestone350.Controllers
     { 
         
         //create a list of buttons
-        static List<Cell> buttons = new List<Cell>();
         Random random = new Random();
         Board gameBoard = new Board();
         
@@ -60,37 +59,40 @@ namespace Milestone350.Controllers
 
   public IActionResult DisplayGameBoard(Board board)
         {
-            
+            Cell[,] cells = gameBoard.Grid;
             gameBoard = new Board(board.Size, board.Difficulty);
-            gameBoard.setupBombs();
-            gameBoard.CalcLiveNeighbors();
+          
             //when page loads, generate the board class
             for (int i = 0; i < gameBoard.Size; i++)
             {
                 for(int j  = 0; j < gameBoard.Size; j++)
                 {
-                    buttons.Add(new Cell(i, j));
+                   
+
+                    gameBoard.Grid[i, j] = new Cell(i,j);
                 }
                
             }
-            return View("DisplayBoard", buttons);
+            gameBoard.setupBombs();
+            gameBoard.CalcLiveNeighbors();
+            return View("DisplayBoard", gameBoard);
         }
 
-        public IActionResult ShowOneCell(int buttonNumber)
+        public IActionResult ShowOneCell(int i, int j)
         {
-            gameBoard.rightClick(buttons.ElementAt(buttonNumber).Row, buttons.ElementAt(buttonNumber).Col);
+            gameBoard.leftClick(i,j);
             
             
             
-            return PartialView(buttons.ElementAt(buttonNumber));
+            return PartialView("ShowOneCell", gameBoard.Grid[i,j]);
         }
 
         //button handlers for the minesweeper game page
-        public IActionResult RightClickShowOneCell(int buttonNumber)
+        public IActionResult RightClickShowOneCell(int i, int j)
         {
-            gameBoard.leftClick(buttons.ElementAt(buttonNumber).Row, buttons.ElementAt(buttonNumber).Col);
+            gameBoard.leftClick(i,j);
 
-            return PartialView("Flag", buttons.ElementAt(buttonNumber));
+            return PartialView("ShowOneCell",gameBoard.Grid[i,j]);
         }
     }
 }

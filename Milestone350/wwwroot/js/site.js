@@ -12,30 +12,31 @@
         {
             case 1:
                 event.preventDefault();
-                var buttonNumber = $(this).val();
-                console.log("Cell " + buttonNumber + " was left clicked");
-                doButtonUpdate(buttonNumber, "/ShowOneCell");
+                var i = $(this).find("Row")
+                var j = $(this).val ();
+                console.log("Cell [" + i + "," + j + "]" +" + " + "was left clicked");
+                doButtonUpdate(i,j, "/login/displayboard/ShowOneCell");
                 break;
             case 3:
                 event.preventDefault();
                 var buttonNumber = $(this).val();
                 console.log("Cell " + buttonNumber + " was Right clicked");
-                doButtonUpdate(buttonNumber, "/Login/DisplayGameBoard/RightClickShowOneCell");
+                doButtonUpdate(buttonNumber, "/login/displayboard/RightClickShowOneCell");
                 break;
 
         }
     });
 });
 
-function doButtonUpdate(buttonNumber, urlString) {
+function doButtonUpdate(i, j, urlString) {
     $.ajax({
         datatype: "json",
         method: "POST",
         url: urlString,
-        data: { "buttonNumber": buttonNumber },
+        data: { "i": i , "j": j },
         success: function (data) {
             
-            $("#" + buttonNumber).html(data);
+            $("#" + i + j).html(data);
         }
     });
 };

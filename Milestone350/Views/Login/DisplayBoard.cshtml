@@ -1,11 +1,13 @@
-﻿@model IEnumerable<Milestone350.Models.Cell>
+﻿@model Milestone350.Models.Board
 <style>
     .game-button {
-        width: 85px;
+        width: 100px;
+        height: 100px;
     }
 
     .game-button-image {
-        width: 70px;
+       width: 90px;
+       height: 90px;
     }
 
     .button-zone {
@@ -35,28 +37,38 @@
 <form>
     <div class="button-zone">
 
-        @for(int i =0; i<Model.Count(); i++)
+        @for(int i =0; i < (Math.Sqrt(Model.Grid.Length)); i++)
         {
-            //start a new line for every five
-            //THIS WILL BE CHANGED WHEN READING IN THE BOARD SIZE
+            for(int j = 0; j < (Math.Sqrt(Model.Grid.Length)); j++)
+            {
+
+                  
+            <button class="game-button" type="submit" value="@Model.Grid[i,j].Row, @Model.Grid[i,j].Col" name="Cordinates" asp-controller ="Login" >
+
+                   @if(@Model.Grid[i,i].IsFlagged)
+                   {
+                       <img class="game-button" src ="~/images/@imageNames[2]"/>
+                   }
+                  
+                    @if(!@Model.Grid[i,i].IsVisited && !Model.Grid[i,j].IsLive)
+      
+                    {@Model.Grid[i,i].LiveNeighbors         }
+
+                    @if (@Model.Grid[i, j].IsLive)
+                    {
+                        <img class="game-button" src ="~/images/@imageNames[1]"/>
+                    }
+                    
+           </button>
+                 
+                             
+            }
+            //start a new line for 
+             <div class="line-break"></div>
          
             
-                 if(i%Math.Sqrt(Model.Count()) == 0)
-                 {
-                    <div class="line-break"></div>
-                 }
             
-           
-            <button class="game-button" type="submit" value="@Model.ElementAt(i)" name="cellNumber" asp-controller ="Login" >
-
-                   @if(@Model.ElementAt(i).IsFlagged) { <img class="game-button" src ="~/images/@imageNames[2]"/>
-}
-                    @if(@Model.ElementAt(i).IsVisited){@Model.ElementAt(i).LiveNeighbors}
-
-
-                
-                   
-           </button>
+          
         }
     </div>
 </form>

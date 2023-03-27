@@ -4,7 +4,7 @@
     string[] imageNames = { "unclickedBox.jpg", "minesweeperBomb.png" };
 }
 
- <button class="game-button" type="submit" value="@Model" name="cellNumber" >
+ <button class="game-button" type="submit" value="@Model.Row, @Model.Col" name="cellNumber" >
 
                    @if(@Model.IsFlagged)
                 {
