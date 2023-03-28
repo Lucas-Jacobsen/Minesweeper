@@ -9,7 +9,7 @@ namespace Milestone350.Controllers
         
         //create a list of buttons
         Random random = new Random();
-        Board gameBoard = new Board();
+       public Board gameBoard = new Board();
         
 
 

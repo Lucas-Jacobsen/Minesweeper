@@ -32,7 +32,8 @@
 
 @{
     string[] imageNames = { "unclickedBox.jpg", "minesweeperBomb.png", "minesweeperFlag.png"};
-    
+    int Cordinates = 0;
+
 }
 <form>
     <div class="button-zone">
@@ -43,21 +44,36 @@
             {
 
                   
-            <button class="game-button" type="submit" value="@Model.Grid[i,j].Row, @Model.Grid[i,j].Col" name="Cordinates" asp-controller ="Login" >
+            <button class="game-button" type="submit" value="@Model.Grid[i,j].Row @Model.Grid[i,j].Col" name="Cordinates" oncontextmenu="handleButtonContextMenu(event, this)" asp-controller ="Login" >
 
-                   @if(@Model.Grid[i,i].IsFlagged)
+                   @if(@Model.Grid[i,i].IsVisited)
                    {
-                       <img class="game-button" src ="~/images/@imageNames[2]"/>
-                   }
-                  
-                    @if(!@Model.Grid[i,i].IsVisited && !Model.Grid[i,j].IsLive)
-      
-                    {@Model.Grid[i,i].LiveNeighbors         }
+                       @if(@Model.Grid[i,j].IsLive)
+                        {
+                             <img class="game-button" src ="~/images/@imageNames[1]"/>
+                           
+                        }
+                        else
+                        {
+                            @Model.Grid[i,j].LiveNeighbors
+                           
+                        }
 
-                    @if (@Model.Grid[i, j].IsLive)
-                    {
-                        <img class="game-button" src ="~/images/@imageNames[1]"/>
+
                     }
+                    else
+                    {
+                        @if(@Model.Grid[i,j].IsFlagged)
+                        {
+                            <img class="game-button" src ="~/images/@imageNames[2]"/>
+                        }
+                        else
+                        {
+                            
+                        }
+                    }
+
+                  
                     
            </button>
                  
