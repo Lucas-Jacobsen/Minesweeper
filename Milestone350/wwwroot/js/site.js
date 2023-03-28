@@ -13,30 +13,44 @@
             case 1:
                 event.preventDefault();
                 
-                var  cord= $(this).val ();
+                var  cord= $(this).val();
                 console.log("Cell [" + cord + "]" +  " + " + "was left clicked");
-                doButtonUpdate(i,j, "/login/displayboard/ShowOneCell");
+                doButtonUpdate(cord, "/login/ShowOneCell");
                 break;
             case 3:
                 event.preventDefault();
                 var cord = $(this).val();
                 console.log("Cell " + cord + " was Right clicked");
-                doButtonUpdate(cord, "/login/displayboard/RightClickShowOneCell");
+                doButtonUpdate(cord, "/login/RightClickShowOneCell");
                 break;
 
         }
     });
 });
 
-function doButtonUpdate(i, j, urlString) {
+function doButtonUpdate(cord, urlString) {
     $.ajax({
         datatype: "json",   
         method: "POST",
         url: urlString,
-        data: { "i": i , "j": j },
+        data: { "Cord": cord},
         success: function (data) {
             
-            $("#" + i + j).html(data);
+            $("#" + cord).html(data);
+        }
+    });
+};
+
+function handleButtonContextMenu(event, button) {
+
+    // oncontextmenu is when this method is called
+    $.ajax({
+        url: "/login/displayboard/RightClickShowOneCell",
+        type: 'POST',
+        data: { bN: button.Col },
+        success: function (result) {
+            console.log('Button right-click detected: ' + button.Row + button.Col );
+            $("#grid").html(result);
         }
     });
 };
