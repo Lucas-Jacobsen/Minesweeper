@@ -59,7 +59,6 @@ namespace Milestone350.Controllers
 
   public IActionResult DisplayGameBoard(Board board)
         {
-            Cell[,] cells = gameBoard.Grid;
             gameBoard = new Board(board.Size, board.Difficulty);
           
             //when page loads, generate the board class
@@ -67,8 +66,6 @@ namespace Milestone350.Controllers
             {
                 for(int j  = 0; j < gameBoard.Size; j++)
                 {
-                   
-
                     gameBoard.Grid[i, j] = new Cell(i,j);
                 }
                
@@ -84,15 +81,15 @@ namespace Milestone350.Controllers
             
             
             
-            return PartialView("ShowOneCell", gameBoard.Grid[i,j]);
+            return PartialView(gameBoard);
         }
 
         //button handlers for the minesweeper game page
         public IActionResult RightClickShowOneCell(int i, int j)
         {
-            gameBoard.leftClick(i,j);
+            gameBoard.rightClick(i,j);
 
-            return PartialView("ShowOneCell",gameBoard.Grid[i,j]);
+            return PartialView("ShowOneCell", gameBoard);
         }
     }
 }
