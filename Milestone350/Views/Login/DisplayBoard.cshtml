@@ -1,17 +1,18 @@
-﻿@model IEnumerable<Milestone350.Models.CellModel>
+﻿@model Milestone350.Models.Board
 <style>
     .game-button {
-        width: 85px;
+        width: 100px;
+        height: 100px;
     }
 
     .game-button-image {
-        width: 85px;
+       width: 90px;
+       height: 90px;
     }
 
     .button-zone {
         display: flex;
         flex-wrap: wrap;
-
     }
 
     .line-break {
@@ -22,35 +23,52 @@
     .button-label {
         font-size: 8px;
         text-align: center;
-
-    
+    }
+    button{
+        height: 50px;
+        width: 50px
     }
 </style>
 
 @{
-    string[] imageNames = { "unclickedBox.jpg", "minesweeperBomb.png" };
+    string[] imageNames = { "unclickedBox.jpg", "minesweeperBomb.png", "minesweeperFlag.png"};
+    
 }
 <form>
     <div class="button-zone">
 
-        @for(int i =0; i<Model.Count(); i++)
+        @for(int i =0; i < (Math.Sqrt(Model.Grid.Length)); i++)
         {
-            //start a new line for every five
-            //THIS WILL BE CHANGED WHEN READING IN THE BOARD SIZE
-            if(i%5 == 0)
+            for(int j = 0; j < (Math.Sqrt(Model.Grid.Length)); j++)
             {
-                <div class="line-break"></div>
+
+                  
+            <button class="game-button" type="submit" value="@Model.Grid[i,j].Row, @Model.Grid[i,j].Col" name="Cordinates" asp-controller ="Login" >
+
+                   @if(@Model.Grid[i,i].IsFlagged)
+                   {
+                       <img class="game-button" src ="~/images/@imageNames[2]"/>
+                   }
+                  
+                    @if(!@Model.Grid[i,i].IsVisited && !Model.Grid[i,j].IsLive)
+      
+                    {@Model.Grid[i,i].LiveNeighbors         }
+
+                    @if (@Model.Grid[i, j].IsLive)
+                    {
+                        <img class="game-button" src ="~/images/@imageNames[1]"/>
+                    }
+                    
+           </button>
+                 
+                             
             }
-            <button class="game-button" type="submit" value="@Model.ElementAt(i).Id" name="cellNumber" asp-controller ="Login" asp-action="HandleButtonClick">
-
-
-                    <img class="game-button" src ="~/images/@imageNames[Model.ElementAt(i).CellState]"/>
-                    <!---<div class="button-label">
-                    @Model.ElementAt(i).Id
-                        ,
-                    @Model.ElementAt(i).CellState
-                    </div>-->
-                </button>
+            //start a new line for 
+             <div class="line-break"></div>
+         
+            
+            
+          
         }
     </div>
 </form>

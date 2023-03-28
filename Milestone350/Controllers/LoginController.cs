@@ -8,9 +8,9 @@ namespace Milestone350.Controllers
     { 
         
         //create a list of buttons
-        static List<CellModel> buttons = new List<CellModel>();
         Random random = new Random();
-        const int GRID_SIZE = 25;
+        Board gameBoard = new Board();
+        
 
 
 
@@ -26,9 +26,11 @@ namespace Milestone350.Controllers
 
 
             if (securityService.IsValid(user))
-            {//when page loads, generate the board class
-                for (int i = 0; i < GRID_SIZE; i++)
-                {
+
+            {
+                //when page loads, generate the board class
+                return View("LoginSuccess", new Board());
+
             }
             else
             {
@@ -57,18 +59,39 @@ namespace Milestone350.Controllers
             }
         }
 
-        //button handlers for the minesweeper game page
-        public IActionResult HandleButtonClick(string cellNumber)
+  public IActionResult DisplayGameBoard(Board board)
         {
-            //convert from a string into an int
-            int cN = int.Parse(cellNumber);
+            gameBoard = new Board(board.Size, board.Difficulty);
+          
+            //when page loads, generate the board class
+            for (int i = 0; i < gameBoard.Size; i++)
+            {
+                for(int j  = 0; j < gameBoard.Size; j++)
+                {
+                    gameBoard.Grid[i, j] = new Cell(i,j);
+                }
+               
+            }
+            gameBoard.setupBombs();
+            gameBoard.CalcLiveNeighbors();
+            return View("DisplayBoard", gameBoard);
+        }
 
-            //change the button visual
-            //THIS WILL CHANGE WITH FUNCTIONALITY
-            buttons.ElementAt(cN).CellState = (buttons.ElementAt(cN).CellState + 1)%2;
+        public IActionResult ShowOneCell(int i, int j)
+        {
+            gameBoard.leftClick(i,j);
+            
+            
+            
+            return PartialView(gameBoard);
+        }
 
-            //redisplay the buttons
-            return View("DisplayBoard", buttons);
+        //button handlers for the minesweeper game page
+        public IActionResult RightClickShowOneCell(int i, int j)
+        {
+            gameBoard.rightClick(i,j);
+
+            return PartialView("ShowOneCell", gameBoard);
         }
     }
 }
