@@ -26,9 +26,11 @@ namespace Milestone350.Controllers
 
 
             if (securityService.IsValid(user))
+
             {
                 //when page loads, generate the board class
                 return View("LoginSuccess", new Board());
+
             }
             else
             {
