@@ -13,44 +13,48 @@
             case 1:
                 event.preventDefault();
                 
-                var  cord= $(this).val();
-                console.log("Cell [" + cord + "]" +  " + " + "was left clicked");
-                doButtonUpdate(cord, "/login/ShowOneCell");
+                var userCell = $(this).val();
+
+
+                console.log("Cell [" + userCell + "]" +  " + " + "was left clicked");
+                doButtonUpdate(userCell, "/login/ShowOneCell");
                 break;
             case 3:
                 event.preventDefault();
-                var cord = $(this).val();
-                console.log("Cell " + cord + " was Right clicked");
-                doButtonUpdate(cord, "/login/RightClickShowOneCell");
+                var userCell = $(this).val();
+                console.log("Cell " + userCell + " was Right clicked");
+                doButtonUpdate(userCell, "/login/RightClickShowOneCell");
                 break;
 
         }
     });
 });
 
-function doButtonUpdate(cord, urlString) {
+function doButtonUpdate(userCell, urlString) {
     $.ajax({
         datatype: "json",   
         method: "POST",
         url: urlString,
-        data: { "Cord": cord},
+        data: { "userCell": userCell},
         success: function (data) {
-            
-            $("#" + cord).html(data);
+            console.log("Do button Update : " + userCell);
+            $("#" + userCell).html(data);
         }
     });
 };
 
-function handleButtonContextMenu(event, button) {
+function handleButtonContextMenu(event, button)
+{
 
     // oncontextmenu is when this method is called
     $.ajax({
-        url: "/login/displayboard/RightClickShowOneCell",
+        url: "/login/HandleButtonFlag",
         type: 'POST',
-        data: { bN: button.Col },
+        data: { "userCell": userCell },
         success: function (result) {
-            console.log('Button right-click detected: ' + button.Row + button.Col );
-            $("#grid").html(result);
+            console.log('Button right-click detected: ');
+            $("#" + userCell).html(result);
         }
-    });
-};
+    }); 
+    event.preventDefault();
+}

@@ -9,8 +9,8 @@ namespace Milestone350.Controllers
         
         //create a list of buttons
         Random random = new Random();
-       public Board gameBoard = new Board();
-        
+       static Board gameBoard = new Board();
+        static Cell[,] buttons;
 
 
 
@@ -26,7 +26,6 @@ namespace Milestone350.Controllers
 
 
             if (securityService.IsValid(user))
-
             {
                 //when page loads, generate the board class
                 return View("LoginSuccess", new Board());
@@ -34,7 +33,7 @@ namespace Milestone350.Controllers
             }
             else
             {
-                return View("LoginFailure", user);
+                return View("LoginSuccess", new Board());
             }
         }
 
@@ -62,34 +61,80 @@ namespace Milestone350.Controllers
   public IActionResult DisplayGameBoard(Board board)
         {
             gameBoard = new Board(board.Size, board.Difficulty);
-          
-            //when page loads, generate the board class
-            for (int i = 0; i < gameBoard.Size; i++)
-            {
-                for(int j  = 0; j < gameBoard.Size; j++)
-                {
-                    gameBoard.Grid[i, j] = new Cell(i,j);
-                }
-               
-            }
+            buttons = board.Grid;
+
+
+           
             gameBoard.setupBombs();
             gameBoard.CalcLiveNeighbors();
             return View("DisplayBoard", gameBoard);
         }
-
-        public IActionResult ShowOneCell(int i, int j)
+        public IActionResult HandleButtonClick(Cell userCell)
         {
-            gameBoard.leftClick(i,j);
-            
-            
+            for (int i = 0; i < gameBoard.Size; i++)
+            {
+                for (int j = 0; j < gameBoard.score; j++)
+                {
+                    if (i ==userCell.Row && j == userCell.Col)
+                    {
+                        gameBoard.leftClick(i, j);
+
+                    }
+                }
+            }
+                //if (gameBoard.checkForWin())
+                //{
+                //    Console.WriteLine("You have won...");
+                //    return View("MinesweeperWin", gameBoard);
+                //}
+                //else if (gameBoard.checkForLose())
+                //{
+                //    return View("MinesweeperLose", gameBoard);
+                //}
+                //else
+                {
+                    return PartialView("ShowOneCell", gameBoard);
+                }
+            }
+
+        public IActionResult HandleFlagClick(Cell userCell)
+        {
+            for (int i = 0; i < gameBoard.Size; i++)
+            {
+                for (int j = 0; j < gameBoard.score; j++)
+                {
+                    if (i == userCell.Row && j == userCell.Col)
+                    {
+                        gameBoard.rightClick(i, j);
+
+                    }
+                }
+            }
+            //if (gameBoard.checkForWin())
+            //{
+            //    Console.WriteLine("You have won...");
+            //    return View("MinesweeperWin", gameBoard);
+            //}
+            //else if (gameBoard.checkForLose())
+            //{
+            //    return View("MinesweeperLose", gameBoard);
+            //}
+            //else
+            {
+                return PartialView("ShowOneCell", gameBoard);
+            }
+        }
+        public IActionResult ShowOneCell(Cell userCell)
+        {
+            gameBoard.leftClick(userCell.Row, userCell.Col);
             
             return PartialView(gameBoard);
         }
 
         //button handlers for the minesweeper game page
-        public IActionResult RightClickShowOneCell(int i, int j)
+        public IActionResult RightClickShowOneCell(Cell userCell)
         {
-            gameBoard.rightClick(i,j);
+            gameBoard.rightClick(userCell.Row, userCell.Col);
 
             return PartialView("ShowOneCell", gameBoard);
         }

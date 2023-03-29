@@ -32,8 +32,6 @@
 
 @{
     string[] imageNames = { "unclickedBox.jpg", "minesweeperBomb.png", "minesweeperFlag.png"};
-    int Cordinates = 0;
-
 }
 <form>
     <div class="button-zone">
@@ -44,7 +42,7 @@
             {
 
                   
-            <button class="game-button" type="submit" value="@Model.Grid[i,j].Row @Model.Grid[i,j].Col" name="Cordinates" oncontextmenu="handleButtonContextMenu(event, this)" asp-controller ="Login" >
+            <button class="game-button" type="submit" value="@Model.Grid[i,j]" name="userCell" oncontextmenu="handleButtonContextMenu(event, this)" asp-controller ="Login" asp-action="HandleButtonClick">
 
                    @if(@Model.Grid[i,i].IsVisited)
                    {

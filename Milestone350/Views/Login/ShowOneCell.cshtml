@@ -1,15 +1,88 @@
-﻿@model Milestone350.Models.Cell
+﻿@model Milestone350.Models.Board
+<style>
+    .game-button {
+        width: 100px;
+        height: 100px;
+    }
+
+    .game-button-image {
+       width: 90px;
+       height: 90px;
+    }
+
+    .button-zone {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .line-break {
+        flex-basis: 100%;
+        height: 0;
+    }
+
+    .button-label {
+        font-size: 8px;
+        text-align: center;
+    }
+    button{
+        height: 50px;
+        width: 50px
+    }
+</style>
 
 @{
-    string[] imageNames = { "unclickedBox.jpg", "minesweeperBomb.png" };
+    string[] imageNames = { "unclickedBox.jpg", "minesweeperBomb.png", "minesweeperFlag.png"};
 }
+<form>
+    <div class="button-zone">
 
- <button class="game-button" type="submit" value="@Model.Row, @Model.Col" name="cellNumber" >
+        @for(int i =0; i < (@Model.Size); i++)
+        {
+            for(int j = 0; j < (@Model.Size); j++)
+            {
+                
 
-                   @if(@Model.IsFlagged)
-                {
-                 <img class="game-button" src ="~/images/@imageNames[Model.LiveNeighbors]"/>
+            <button class="game-button" type="submit" value="@Model.Grid[i,j]" name="userCell" oncontextmenu="handleButtonContextMenu(event, this)" asp-controller ="Login" asp-action="HandleButtonClick">
 
-                }
-                   
+                   @if(@Model.Grid[i,i].IsVisited)
+                   {
+                       @if(@Model.Grid[i,j].IsLive)
+                        {
+                            <img class="game-button" src ="~/images/@imageNames[1]"/>
+
+                        }
+                        else
+                        {
+                            @Model.Grid[i, j].LiveNeighbors
+
+                        }
+
+
+                    }
+                    else
+                    {
+                        @if(Model.Grid[i,j].IsFlagged)
+                        {
+                            <img class="game-button" src ="~/images/@imageNames[2]"/>
+                        }
+                        else
+                        {
+                            
+                        }
+                    }
+
+                  
+                    
            </button>
+                 
+                             
+            }
+            //start a new line for 
+             <div class="line-break"></div>
+         
+            
+            
+          
+        }
+    </div>
+</form>
